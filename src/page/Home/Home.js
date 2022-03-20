@@ -7,6 +7,7 @@ import { Gallery } from "./Gallery/Gallery";
 import { Modal } from "../../components/Modal/Modal";
 import { getImgId } from "../../api/getImgId";
 import { Loader } from "../../components/Loader/Loader";
+import { Error } from "../../components/Error/Error";
 
 const postComment = { name: "", comment: "" };
 
@@ -16,6 +17,7 @@ export const Home = () => {
 	const [currentImg, setCurrentImg] = useState();
 	const [loader, setLoader] = useState();
 	const [commentValue, setCommentValue] = useState(postComment);
+	const [error, setError] = useState();
 
 	const getAsyncImages = async () => {
 		setLoader(true);
@@ -26,8 +28,7 @@ export const Home = () => {
 			setImgInfo(imgInfo);
 		} catch (error) {
 			setLoader(false);
-			console.log(error);
-			throw new Error(error);
+			setError(error);
 		}
 		setLoader(false);
 	};
@@ -46,9 +47,14 @@ export const Home = () => {
 		setCurrentImg(null);
 	};
 	const postAsync = async () => {
-		const response = await postComments(commentValue, currentImg.id);
-		currentImg.comments.push(response);
-		setCurrentImg((prev) => ({ ...prev }));
+		try {
+			const response = await postComments(commentValue, currentImg.id);
+			currentImg.comments.push(response);
+			setCurrentImg((prev) => ({ ...prev }));
+		} catch (error) {
+			setCurrentImg(null);
+			setError(error);
+		}
 	};
 	const submitHandler = (evt) => {
 		evt.preventDefault();
@@ -66,7 +72,9 @@ export const Home = () => {
 	return (
 		<>
 			<Header />
-			{loader ? (
+			{error ? (
+				<Error errorMessage={error} />
+			) : loader ? (
 				<Loader />
 			) : (
 				<main>

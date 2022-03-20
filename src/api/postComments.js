@@ -13,9 +13,10 @@ export const postComments = async (newComment, id) => {
 		`${PICTURES_URL}/images/${id}/comments`,
 		requestOptions,
 	);
+	if (!response.ok) {
+		throw response.status;
+	}
 	if (response.status === 204) {
 		return new Promise((resolve) => resolve(newComment));
 	}
-	// const data = await response.json();
-	// return data;
 };
