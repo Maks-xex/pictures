@@ -1,5 +1,7 @@
 import React from "react";
+
 import { Comments } from "./Comments";
+
 import "./modal.scss";
 
 const inputsValue = {

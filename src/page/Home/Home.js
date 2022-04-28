@@ -1,23 +1,27 @@
 import React, { useEffect, useState } from "react";
+
 import { getImages } from "../../api/getImages";
+import { getImgId } from "../../api/getImgId";
 import { postComments } from "../../api/postComments";
+
 import { Footer } from "../../components/Footer";
 import { Header } from "../../components/Header";
-import { Gallery } from "./Gallery/Gallery";
+
 import { Modal } from "../../components/Modal/Modal";
-import { getImgId } from "../../api/getImgId";
 import { Loader } from "../../components/Loader/Loader";
 import { Error } from "../../components/Error/Error";
+
+import { Gallery } from "./Gallery/Gallery";
 
 const postComment = { name: "", comment: "" };
 
 export const Home = () => {
 	const [imagesList, setImagesList] = useState([]);
 	const [imgInfo, setImgInfo] = useState([]);
-	const [currentImg, setCurrentImg] = useState();
-	const [loader, setLoader] = useState();
+	const [currentImg, setCurrentImg] = useState(null);
+	const [loader, setLoader] = useState(false);
 	const [commentValue, setCommentValue] = useState(postComment);
-	const [error, setError] = useState();
+	const [error, setError] = useState(null);
 
 	const getAsyncImages = async () => {
 		setLoader(true);
@@ -33,19 +37,6 @@ export const Home = () => {
 		setLoader(false);
 	};
 
-	useEffect(() => {
-		getAsyncImages();
-	}, []);
-
-	const currentImagesHandler = (evt, id) => {
-		evt.preventDefault();
-		setCurrentImg(imgInfo.find((it) => it.id === id));
-	};
-
-	const handlerCloseButton = () => {
-		document.querySelector("body").style.overflow = "visible";
-		setCurrentImg(null);
-	};
 	const postAsync = async () => {
 		try {
 			const response = await postComments(commentValue, currentImg.id);
@@ -56,18 +47,35 @@ export const Home = () => {
 			setError(error);
 		}
 	};
+
+	const currentImagesHandler = (evt, id) => {
+		evt.preventDefault();
+		setCurrentImg(imgInfo.find((it) => it.id === id));
+	};
+
+	const handlerCloseButton = () => {
+		document.querySelector("body").style.overflow = "visible";
+		setCurrentImg(null);
+	};
+
 	const submitHandler = (evt) => {
 		evt.preventDefault();
 		postAsync();
 	};
 
 	const changeHandler = (evt) => {
+		const id = evt.target.id;
+		const value = evt.target.value;
+
 		setCommentValue((prev) => ({
-			name: (evt.target.id === "name" && evt.target.value) || prev.name,
-			comment:
-				(evt.target.id === "comment" && evt.target.value) || prev.comment,
+			...prev,
+			[id]: id === id ? value : prev[id],
 		}));
 	};
+
+	useEffect(() => {
+		getAsyncImages();
+	}, []);
 
 	return (
 		<>

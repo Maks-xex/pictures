@@ -1,5 +1,4 @@
 import { PICTURES_URL } from "./constans";
-// const newComment = { name: "Ivan", comment: "asdd" };
 export const postComments = async (newComment, id) => {
 	const requestOptions = {
 		method: "POST",

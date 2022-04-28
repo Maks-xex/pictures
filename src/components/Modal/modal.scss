@@ -70,6 +70,10 @@ $mobile-width: 767px;
 		border-color: transparent;
 		color: white;
 		padding: 5.5px 0;
+		cursor: pointer;
+		&:hover {
+			background: #5099d0f6;
+		}
 	}
 	& label {
 		font-size: 0;

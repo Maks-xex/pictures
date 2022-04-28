@@ -1,3 +1,11 @@
+import { Route, Routes } from "react-router-dom";
+
 import { Home } from "./page/Home/Home";
+
 import "./index.scss";
-export const App = () => <Home />;
+
+export const App = () => (
+	<Routes>
+		<Route path='/' element={<Home />} />
+	</Routes>
+);
