@@ -1,0 +1,44 @@
+$mobile-width: 767px;
+
+.gallery__form {
+	grid-gap: 20px;
+	grid-column: 1/1;
+	order: 3;
+	& input {
+		font-family: "Roboto";
+		background: #ffffff;
+		border: 1px solid #cccccc;
+		height: 30px;
+		box-sizing: border-box;
+		border-radius: 3px;
+
+		font-size: 13px;
+		line-height: 15px;
+		padding-left: 11px;
+	}
+	& button {
+		background: #4997d0;
+		border-radius: 3px;
+		border-color: transparent;
+		color: white;
+		padding: 5.5px 0;
+		cursor: pointer;
+		&:hover {
+			background: #5099d0f6;
+		}
+	}
+	& label {
+		font-size: 0;
+	}
+}
+.gallery__form,
+.gallery__form label {
+	display: flex;
+	flex-direction: column;
+}
+
+@media (max-width: $mobile-width) {
+	.gallery__form {
+		margin: 0 10px;
+	}
+}

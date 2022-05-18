@@ -1,109 +1,72 @@
 import React, { useEffect, useState } from "react";
 
-import { getImages } from "../../api/getImages";
-import { getImgId } from "../../api/getImgId";
-import { postComments } from "../../api/postComments";
-
-import { Footer } from "../../components/Footer";
-import { Header } from "../../components/Header";
-
-import { Modal } from "../../components/Modal/Modal";
+import { Footer } from "../../components/Footer/Footer";
+import { Header } from "../../components/Header/Header";
 import { Loader } from "../../components/Loader/Loader";
 import { Error } from "../../components/Error/Error";
+import { Picture } from "../../components/Picture/Picture";
 
-import { Gallery } from "./Gallery/Gallery";
+import { getImages } from "../../api/getImages";
+import { getImgInfoById } from "../../api/getImgInfoById";
 
-const postComment = { name: "", comment: "" };
+import { ModalImg } from "./ModalImg/ModalImg";
+
+import classes from "./Home.module.scss";
 
 export const Home = () => {
-	const [imagesList, setImagesList] = useState([]);
-	const [imgInfo, setImgInfo] = useState([]);
-	const [currentImg, setCurrentImg] = useState(null);
-	const [loader, setLoader] = useState(false);
-	const [commentValue, setCommentValue] = useState(postComment);
+	const [loading, setLoading] = useState(false);
 	const [error, setError] = useState(null);
+	const [images, setImages] = useState([]);
+	const [currentImg, setCurrentImg] = useState(null);
 
 	const getAsyncImages = async () => {
-		setLoader(true);
+		setLoading(true);
 		try {
 			const images = await getImages();
-			const imgInfo = await getImgId(images);
-			setImagesList(images);
-			setImgInfo(imgInfo);
+			setImages(images);
 		} catch (error) {
-			setLoader(false);
+			setLoading(false);
 			setError(error);
 		}
-		setLoader(false);
+		setLoading(false);
 	};
 
-	const postAsync = async () => {
-		try {
-			const response = await postComments(commentValue, currentImg.id);
-			currentImg.comments.push(response);
-			setCurrentImg((prev) => ({ ...prev }));
-		} catch (error) {
-			setCurrentImg(null);
-			setError(error);
-		}
+	const onImageClickHandler = async (id) => {
+		setLoading(true);
+		const imgInfo = await getImgInfoById(id);
+		setCurrentImg(imgInfo);
+		setLoading(false);
 	};
 
-	const currentImagesHandler = (evt, id) => {
-		evt.preventDefault();
-		setCurrentImg(imgInfo.find((it) => it.id === id));
-	};
-
-	const handlerCloseButton = () => {
-		document.querySelector("body").style.overflow = "visible";
-		setCurrentImg(null);
-	};
-
-	const submitHandler = (evt) => {
-		evt.preventDefault();
-		postAsync();
-	};
-
-	const changeHandler = (evt) => {
-		const id = evt.target.id;
-		const value = evt.target.value;
-
-		setCommentValue((prev) => ({
-			...prev,
-			[id]: id === id ? value : prev[id],
-		}));
-	};
+	const renderImages = () =>
+		images.map((img) => (
+			<Picture
+				key={img.id}
+				img={img}
+				alt={img.id}
+				onImageClickHandler={onImageClickHandler}
+			/>
+		));
 
 	useEffect(() => {
 		getAsyncImages();
 	}, []);
 
+	useEffect(() => {
+		currentImg && (document.body.style.overflow = "hidden");
+		!currentImg && (document.body.style.overflow = "auto");
+	}, [currentImg]);
+
 	return (
 		<>
 			<Header />
-			{error ? (
-				<Error errorMessage={error} />
-			) : loader ? (
-				<Loader />
-			) : (
-				<main>
-					<Gallery
-						img={imagesList}
-						currentImg={currentImg}
-						currentImagesHandler={currentImagesHandler}
-						submitHandler={submitHandler}
-					/>
-				</main>
-			)}
+			<main>
+				<section className={classes.gallery}>{renderImages()}</section>
+			</main>
 			<Footer />
-			{currentImg && (
-				<Modal
-					currentImg={currentImg}
-					commentValues={commentValue}
-					onClose={handlerCloseButton}
-					onSubmit={submitHandler}
-					onChange={changeHandler}
-				/>
-			)}
+			<ModalImg currentImg={currentImg} setCurrentImg={setCurrentImg} />
+			<Error errorMessage={error} />
+			<Loader isLoading={loading} />
 		</>
 	);
 };

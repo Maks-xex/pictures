@@ -1,17 +1,20 @@
 import React from "react";
 
-import "./loader.scss";
+import classes from "./Loader.module.scss";
 
-export const Loader = () => (
-	<div className='lds-grid'>
-		<div></div>
-		<div></div>
-		<div></div>
-		<div></div>
-		<div></div>
-		<div></div>
-		<div></div>
-		<div></div>
-		<div></div>
-	</div>
-);
+export const Loader = ({ isLoading }) =>
+	isLoading ? (
+		<div className={classes.loader_wrapper}>
+			<div className={classes.lds_grid}>
+				<div></div>
+				<div></div>
+				<div></div>
+				<div></div>
+				<div></div>
+				<div></div>
+				<div></div>
+				<div></div>
+				<div></div>
+			</div>
+		</div>
+	) : null;

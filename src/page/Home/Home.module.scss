@@ -1,0 +1,15 @@
+.gallery {
+	display: grid;
+	column-gap: 4%;
+	row-gap: 25px;
+	margin: 0 auto 20px;
+	justify-content: center;
+}
+
+@media (min-width: 768px) {
+	.gallery {
+		grid-template-columns: repeat(3, 1fr);
+		margin: 0 auto;
+		max-width: 980px;
+	}
+}

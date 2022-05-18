@@ -7,7 +7,6 @@ body {
 	background-size: cover;
 	background-attachment: fixed;
 	background-color: #476470;
-	overflow: auto;
 }
 * {
 	margin: 0;
@@ -15,38 +14,18 @@ body {
 
 	box-sizing: border-box;
 }
-header {
-	text-align: center;
-	margin-bottom: 15px;
-	box-shadow: 1px 1px 20px 4px;
+
+img {
+	max-width: 100%;
 }
+
 #root {
 	height: 100vh;
 	display: flex;
 	flex-direction: column;
 }
-footer {
-	width: 100%;
-	text-align: center;
-	margin-top: auto;
-}
-.footer-wrapper {
-	display: flex;
-	flex-direction: column;
-	justify-content: center;
-	margin: 0 20px;
-	min-height: 50px;
-	border-top: 1px solid #cccccc;
-	font-size: 14px;
-	line-height: 16px;
-	color: #cccccc;
-}
+
 .v-hidden {
 	font-size: 0;
 	visibility: hidden;
-}
-@media (min-width: 768px) {
-	header {
-		margin: 0 0 110px;
-	}
 }
