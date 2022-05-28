@@ -4,11 +4,11 @@ import classes from "./Comments.module.scss";
 
 export const Comments = ({ comments }) =>
 	comments.map((commentValue, i) => {
-		const { name, text, comment } = commentValue;
+		const { name, text, comment, date } = commentValue;
 		return (
 			<div className={classes.comments__item} key={i}>
 				<p className={classes.comments_item__date}>
-					{new Date().toLocaleDateString()}
+					{new Date(date).toLocaleDateString()}
 				</p>
 				{name && <p className={classes.comments_item__name}>{name}</p>}
 				<p className={classes.comments_item__text}>{text || comment}</p>

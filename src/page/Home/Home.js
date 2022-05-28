@@ -1,5 +1,5 @@
-import React, { useEffect } from "react";
-import { useDispatch, useSelector } from "react-redux";
+import React from "react";
+import { useDispatch } from "react-redux";
 
 import { Footer } from "../../components/Footer/Footer";
 import { Header } from "../../components/Header/Header";
@@ -7,23 +7,22 @@ import { Loader } from "../../components/Loader/Loader";
 import { Error } from "../../components/Error/Error";
 import { Picture } from "../../components/Picture/Picture";
 
-import { getAsyncImages } from "../../features/images/getAsyncImages";
-import { onClickAsync } from "../../features/currentImg/onClickAsync";
-
 import { ModalImg } from "./ModalImg/ModalImg";
+
+import { addId } from "../../features/currentImg/currentImgSlice";
+import { useGetImagesQuery } from "../../features/images/imagesApi";
 
 import classes from "./Home.module.scss";
 
 export const Home = () => {
-	const { images, loading, error } = useSelector((state) => state.images);
+	const { data: images, isLoading, error } = useGetImagesQuery();
 
 	const dispatch = useDispatch();
 
-	const onImageClickHandler = (id) => {
-		dispatch(onClickAsync(id));
-	};
+	const onImageClickHandler = (id) => dispatch(addId({ id, skip: false }));
 
 	const renderImages = () =>
+		images &&
 		images.map((img) => (
 			<Picture
 				key={img.id}
@@ -32,10 +31,6 @@ export const Home = () => {
 				onImageClickHandler={onImageClickHandler}
 			/>
 		));
-
-	useEffect(() => {
-		dispatch(getAsyncImages());
-	}, [dispatch]);
 
 	return (
 		<>
@@ -46,7 +41,7 @@ export const Home = () => {
 			<Footer />
 			<ModalImg />
 			<Error errorMessage={error} />
-			<Loader isLoading={loading} />
+			<Loader isLoading={isLoading} />
 		</>
 	);
 };

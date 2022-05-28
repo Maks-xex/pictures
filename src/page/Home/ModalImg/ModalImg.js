@@ -6,19 +6,29 @@ import { Loader } from "../../../components/Loader/Loader";
 import { Modal } from "../../../components/Modal/Modal";
 import { Comments } from "../../../components/Comments/Comments";
 
-import { clearCurrentImg } from "../../../features/currentImg/currentImgSlice";
-
 import { Form } from "../Form/Form";
+
+import { useGetImgInfoByIdQuery } from "../../../features/currentImg/imagesInfoApi";
+import {
+	addCurrentImg,
+	clearCurrentImg,
+} from "../../../features/currentImg/currentImgSlice";
 
 import classes from "./ModalImg.module.scss";
 
 export const ModalImg = () => {
-	const { currentImg, loading, error } = useSelector(
-		(state) => state.currentImg,
-	);
+	const { currentImg, id, skip } = useSelector((state) => state.currentImg);
+	const { data, isLoading, error } = useGetImgInfoByIdQuery(id, { skip: skip });
+
 	const dispatch = useDispatch();
 
-	const closeModal = () => dispatch(clearCurrentImg(null));
+	const closeModal = () => {
+		dispatch(clearCurrentImg(null));
+	};
+
+	useEffect(() => {
+		dispatch(addCurrentImg(data));
+	}, [data, dispatch]);
 
 	useEffect(() => {
 		currentImg && (document.body.style.overflow = "hidden");
@@ -36,7 +46,7 @@ export const ModalImg = () => {
 					</div>
 				</Modal>
 			) : null}
-			<Loader isLoading={loading} />
+			<Loader isLoading={isLoading} />
 			<Error errorMessage={error} />
 		</>
 	);
