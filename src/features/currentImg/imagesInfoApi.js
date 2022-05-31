@@ -3,7 +3,7 @@ import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
 import { PICTURES_URL } from "../../api/constans";
 
 export const imagesInfoApi = createApi({
-	reducerPath: "onClickAsync",
+	reducerPath: "imagesInfoApi",
 	baseQuery: fetchBaseQuery({ baseUrl: PICTURES_URL }),
 	endpoints: (builder) => ({
 		getImgInfoById: builder.query({

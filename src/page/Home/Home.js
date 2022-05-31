@@ -19,7 +19,9 @@ export const Home = () => {
 
 	const dispatch = useDispatch();
 
-	const onImageClickHandler = (id) => dispatch(addId({ id, skip: false }));
+	const onImageClickHandler = (id) => {
+		dispatch(addId({ id }));
+	};
 
 	const renderImages = () =>
 		images &&
@@ -40,7 +42,10 @@ export const Home = () => {
 			</main>
 			<Footer />
 			<ModalImg />
-			<Error errorMessage={error} />
+			<Error
+				errorMessage={error && error.originalStatus}
+				children={"перезагрузите страницу"}
+			/>
 			<Loader isLoading={isLoading} />
 		</>
 	);

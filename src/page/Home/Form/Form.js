@@ -1,6 +1,9 @@
 import React, { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 
+import { Error } from "../../../components/Error/Error";
+import { Loader } from "../../../components/Loader/Loader";
+
 import { addUserComment } from "../../../features/currentImg/currentImgSlice";
 import { usePostCommentMutation } from "../../../features/currentImg/imagesInfoApi";
 
@@ -13,7 +16,7 @@ export const Form = () => {
 		comment: "",
 		date: new Date().getTime(),
 	});
-	const [addComment] = usePostCommentMutation();
+	const [addComment, { isLoading, error }] = usePostCommentMutation();
 
 	const dispatch = useDispatch();
 
@@ -61,6 +64,13 @@ export const Form = () => {
 				</label>
 				<button type='submit'>Оставить комментарий</button>
 			</form>
+			<Error
+				errorMessage={error && error.originalStatus}
+				additionalClass={"error_form"}
+				closeButton={true}
+				children={"попробуйте снова либо перезагрузите страницу"}
+			/>
+			<Loader isLoading={isLoading} />
 		</>
 	);
 };
