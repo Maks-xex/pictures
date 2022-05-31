@@ -12,7 +12,7 @@ export const store = configureStore({
 		[imagesApi.reducerPath]: imagesApi.reducer,
 	},
 	middleware: (getDefaultMiddleware) =>
-		getDefaultMiddleware().concat(
+		getDefaultMiddleware().prepend(
 			imagesInfoApi.middleware,
 			imagesApi.middleware,
 		),

@@ -5,18 +5,17 @@ const currentImgSlice = createSlice({
 	initialState: {
 		currentImg: null,
 		id: null,
-		skip: true,
 	},
 	reducers: {
-		clearCurrentImg(state, action) {
-			state.currentImg = action.payload;
+		removeCurrentImg(state) {
+			[state.currentImg, state.id] = [null, null];
 		},
 		addCurrentImg(state, action) {
 			state.currentImg = action.payload;
 		},
+
 		addId(state, action) {
 			state.id = action.payload.id;
-			state.skip = action.payload.skip;
 		},
 		addUserComment(state, action) {
 			state.currentImg.comments.push(action.payload);
@@ -24,6 +23,6 @@ const currentImgSlice = createSlice({
 	},
 });
 
-export const { clearCurrentImg, addUserComment, addCurrentImg, addId } =
+export const { removeCurrentImg, addUserComment, addCurrentImg, addId } =
 	currentImgSlice.actions;
 export default currentImgSlice.reducer;

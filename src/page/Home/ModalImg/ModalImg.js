@@ -11,33 +11,29 @@ import { Form } from "../Form/Form";
 import { useGetImgInfoByIdQuery } from "../../../features/currentImg/imagesInfoApi";
 import {
 	addCurrentImg,
-	clearCurrentImg,
+	removeCurrentImg,
 } from "../../../features/currentImg/currentImgSlice";
 
 import classes from "./ModalImg.module.scss";
 
 export const ModalImg = () => {
-	const { currentImg, id, skip } = useSelector((state) => state.currentImg);
-	const { data, isLoading, error } = useGetImgInfoByIdQuery(id, { skip: skip });
-
+	const { currentImg, id } = useSelector((state) => state.currentImg);
+	const { data, isFetching, isSuccess, error } = useGetImgInfoByIdQuery(id, {
+		skip: !id,
+	});
 	const dispatch = useDispatch();
 
 	const closeModal = () => {
-		dispatch(clearCurrentImg(null));
+		dispatch(removeCurrentImg());
 	};
 
 	useEffect(() => {
-		dispatch(addCurrentImg(data));
-	}, [data, dispatch]);
-
-	useEffect(() => {
-		currentImg && (document.body.style.overflow = "hidden");
-		!currentImg && (document.body.style.overflow = "auto");
-	}, [currentImg]);
+		isSuccess && dispatch(addCurrentImg(data));
+	}, [dispatch, data, isSuccess]);
 
 	return (
 		<>
-			{currentImg ? (
+			{!isFetching && currentImg ? (
 				<Modal isOpen={currentImg} onClose={closeModal}>
 					<img src={currentImg.url} alt={`img: ${currentImg.id}`} />
 					<Form />
@@ -46,7 +42,7 @@ export const ModalImg = () => {
 					</div>
 				</Modal>
 			) : null}
-			<Loader isLoading={isLoading} />
+			<Loader isLoading={isFetching} />
 			<Error errorMessage={error} />
 		</>
 	);
