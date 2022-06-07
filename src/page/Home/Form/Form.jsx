@@ -1,9 +1,14 @@
 import React, { useState } from "react";
+import PropTypes from "prop-types";
 
 import classes from "./Form.module.scss";
 
 export const Form = ({ postCommentAsync }) => {
-	const [formValues, setFormValues] = useState({ name: "", comment: "" });
+	const [formValues, setFormValues] = useState({
+		name: "",
+		comment: "",
+		date: new Date().getTime(),
+	});
 
 	const changeFormHandler = (evt) => {
 		const { id, value } = evt.target;
@@ -43,4 +48,8 @@ export const Form = ({ postCommentAsync }) => {
 			<button type='submit'>Оставить комментарий</button>
 		</form>
 	);
+};
+
+Form.propTypes = {
+	postCommentAsync: PropTypes.func.isRequired,
 };

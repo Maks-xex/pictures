@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import PropTypes from "prop-types";
 
 import { Error } from "../../../components/Error/Error";
 import { Loader } from "../../../components/Loader/Loader";
@@ -33,7 +34,9 @@ export const ModalImg = ({ currentImg, setCurrentImg }) => {
 	return (
 		<>
 			{currentImg ? (
-				<Modal isOpen={currentImg} onClose={() => setCurrentImg(null)}>
+				<Modal
+					isOpen={currentImg ? true : false}
+					onClose={() => setCurrentImg(null)}>
 					<img src={currentImg.url} alt={`img: ${currentImg.id}`} />
 					<Form postCommentAsync={postCommentAsync} />
 					<div className={classes.gallery_form__comments}>
@@ -45,4 +48,8 @@ export const ModalImg = ({ currentImg, setCurrentImg }) => {
 			<Error errorMessage={error} />
 		</>
 	);
+};
+ModalImg.propTypes = {
+	currentImg: PropTypes.object,
+	setCurrentImg: PropTypes.func.isRequired,
 };

@@ -1,4 +1,5 @@
 import React from "react";
+import PropTypes from "prop-types";
 
 import classes from "./Error.module.scss";
 
@@ -9,3 +10,7 @@ export const Error = ({ errorMessage }) =>
 			<p>Ошибка: {errorMessage}</p>
 		</div>
 	) : null;
+
+Error.propTypes = {
+	errorMessage: PropTypes.string,
+};

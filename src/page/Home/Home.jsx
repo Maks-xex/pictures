@@ -43,7 +43,7 @@ export const Home = () => {
 			<Picture
 				key={img.id}
 				img={img}
-				alt={img.id}
+				alt={img.id.toString()}
 				onImageClickHandler={onImageClickHandler}
 			/>
 		));

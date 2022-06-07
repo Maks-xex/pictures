@@ -1,4 +1,5 @@
 import React from "react";
+import PropTypes from "prop-types";
 
 import classes from "./Modal.module.scss";
 
@@ -13,3 +14,9 @@ export const Modal = ({ children, isOpen, onClose }) =>
 			</div>
 		</div>
 	) : null;
+
+Modal.propTypes = {
+	children: PropTypes.any,
+	isOpen: PropTypes.bool.isRequired,
+	onClose: PropTypes.func.isRequired,
+};
