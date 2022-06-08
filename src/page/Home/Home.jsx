@@ -14,59 +14,59 @@ import { ModalImg } from "./ModalImg/ModalImg";
 import classes from "./Home.module.scss";
 
 export const Home = () => {
-	const [loading, setLoading] = useState(false);
-	const [error, setError] = useState(null);
-	const [images, setImages] = useState([]);
-	const [currentImg, setCurrentImg] = useState(null);
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState(null);
+  const [images, setImages] = useState([]);
+  const [currentImg, setCurrentImg] = useState(null);
 
-	const getAsyncImages = async () => {
-		setLoading(true);
-		try {
-			const images = await getImages();
-			setImages(images);
-		} catch (error) {
-			setLoading(false);
-			setError(error);
-		}
-		setLoading(false);
-	};
+  const getAsyncImages = async () => {
+    setLoading(true);
+    try {
+      const images = await getImages();
+      setImages(images);
+    } catch (error) {
+      setLoading(false);
+      setError(error);
+    }
+    setLoading(false);
+  };
 
-	const onImageClickHandler = async (id) => {
-		setLoading(true);
-		const imgInfo = await getImgInfoById(id);
-		setCurrentImg(imgInfo);
-		setLoading(false);
-	};
+  const onImageClickHandler = async (id) => {
+    setLoading(true);
+    const imgInfo = await getImgInfoById(id);
+    setCurrentImg(imgInfo);
+    setLoading(false);
+  };
 
-	const renderImages = () =>
-		images.map((img) => (
-			<Picture
-				key={img.id}
-				img={img}
-				alt={img.id.toString()}
-				onImageClickHandler={onImageClickHandler}
-			/>
-		));
+  const renderImages = () =>
+    images.map((img) => (
+      <Picture
+        key={img.id}
+        img={img}
+        alt={img.id.toString()}
+        onImageClickHandler={onImageClickHandler}
+      />
+    ));
 
-	useEffect(() => {
-		getAsyncImages();
-	}, []);
+  useEffect(() => {
+    getAsyncImages();
+  }, []);
 
-	useEffect(() => {
-		currentImg && (document.body.style.overflow = "hidden");
-		!currentImg && (document.body.style.overflow = "auto");
-	}, [currentImg]);
+  useEffect(() => {
+    currentImg && (document.body.style.overflow = "hidden");
+    !currentImg && (document.body.style.overflow = "auto");
+  }, [currentImg]);
 
-	return (
-		<>
-			<Header />
-			<main>
-				<section className={classes.gallery}>{renderImages()}</section>
-			</main>
-			<Footer />
-			<ModalImg currentImg={currentImg} setCurrentImg={setCurrentImg} />
-			<Error errorMessage={error} />
-			<Loader isLoading={loading} />
-		</>
-	);
+  return (
+    <>
+      <Header />
+      <main>
+        <section className={classes.gallery}>{renderImages()}</section>
+      </main>
+      <Footer />
+      <ModalImg currentImg={currentImg} setCurrentImg={setCurrentImg} />
+      <Error errorMessage={error} />
+      <Loader isLoading={loading} />
+    </>
+  );
 };

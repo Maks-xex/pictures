@@ -6,7 +6,7 @@ import { Home } from "./page/Home/Home";
 import "./index.scss";
 
 export const App = () => (
-	<Routes>
-		<Route path='/' element={<Home />} />
-	</Routes>
+  <Routes>
+    <Route path="/" element={<Home />} />
+  </Routes>
 );
