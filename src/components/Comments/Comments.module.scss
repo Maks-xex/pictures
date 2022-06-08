@@ -1,27 +1,29 @@
-.comments__item {
+.item {
   width: auto;
   padding-bottom: 10px;
 }
 
-.comments_item__text,
-.comments_item__date {
-  font-family: "Roboto";
+.item__text,
+.item__date {
+  font-family: Roboto;
   font-style: normal;
   font-weight: 400;
   font-size: 14px;
   line-height: 15px;
 }
-.comments_item__text {
+
+.item__text {
   padding-left: 2px;
 }
-.comments_item__date {
-  color: #999999;
+
+.item__date {
+  color: #9999;
   font-size: 13px;
   padding-bottom: 2px;
 }
 
-.comments_item__name {
-  font-weight: bold;
+.item__name {
+  font-weight: bolder;
   font-size: 16px;
   padding-bottom: 2px;
   color: #4997d0;

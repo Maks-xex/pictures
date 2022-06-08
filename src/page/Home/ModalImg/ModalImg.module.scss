@@ -20,17 +20,13 @@ $mobile-width: 767px;
 
 .gallery_form__comments {
   overflow-y: auto;
+
   & p {
     overflow-wrap: anywhere;
   }
 }
 
 @media (max-width: $mobile-width) {
-  .gallery_wrapper {
-    width: 320px;
-    flex-direction: column;
-    align-items: center;
-  }
   .gallery_form__comments {
     margin: 10px 15px 15px;
     height: 90%;
@@ -39,9 +35,6 @@ $mobile-width: 767px;
   }
 }
 @media (min-width: 768px) {
-  .gallery-wrapper {
-    width: 728px;
-  }
   .gallery_form__comments {
     width: 184px;
     grid-column: 2/2;

@@ -5,7 +5,7 @@ import classes from "./Loader.module.scss";
 
 export const Loader = ({ isLoading }) =>
   isLoading ? (
-    <div className={classes.loader_wrapper}>
+    <div className={classes.wrapper}>
       <div className={classes.lds_grid}>
         <div></div>
         <div></div>

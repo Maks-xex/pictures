@@ -6,7 +6,7 @@ import classes from "./Header.module.scss";
 
 export const Header = () => (
   <header className={classes.header}>
-    <h1 className="v-hidden">Avito</h1>
+    <h1 className="v_hidden">Pictures</h1>
     <img src={logo} alt="Logo" width="75px" />
   </header>
 );

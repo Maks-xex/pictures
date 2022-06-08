@@ -26,15 +26,20 @@ export const Home = () => {
       setImages(images);
     } catch (error) {
       setLoading(false);
-      setError(error);
+      setError(error.message);
     }
     setLoading(false);
   };
 
   const onImageClickHandler = async (id) => {
-    setLoading(true);
-    const imgInfo = await getImgInfoById(id);
-    setCurrentImg(imgInfo);
+    try {
+      setLoading(true);
+      const imgInfo = await getImgInfoById(id);
+      setCurrentImg(imgInfo);
+    } catch (error) {
+      setLoading(false);
+      setError(error.message);
+    }
     setLoading(false);
   };
 

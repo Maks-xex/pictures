@@ -5,7 +5,7 @@ import classes from "./Error.module.scss";
 
 export const Error = ({ errorMessage }) =>
   errorMessage ? (
-    <div className={classes.error_box}>
+    <div className={classes.box}>
       <p>Что-то пошло не так...</p>
       <p>Ошибка: {errorMessage}</p>
     </div>

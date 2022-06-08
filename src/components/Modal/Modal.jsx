@@ -5,8 +5,8 @@ import classes from "./Modal.module.scss";
 
 export const Modal = ({ children, isOpen, onClose }) =>
   isOpen ? (
-    <div className={classes.modal_fade}>
-      <div className={classes.gallery_overlay}>
+    <div className={classes.modal__fade}>
+      <div className={classes.gallery__overlay}>
         {children}
         <button className={classes.gallery__close_modal} onClick={onClose}>
           Закрыть

@@ -24,9 +24,8 @@ export const ModalImg = ({ currentImg, setCurrentImg }) => {
       currentImg.comments.push(response);
       setCurrentImg({ ...currentImg });
     } catch (error) {
-      setCurrentImg(null);
       setLoading(false);
-      setError(error);
+      setError(error.message);
     }
     setLoading(false);
   };
