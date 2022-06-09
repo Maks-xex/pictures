@@ -1,31 +1,30 @@
 body {
-	font-family: "Roboto";
-	font-style: normal;
-	font-weight: 400;
-
-	background-image: url("https://images.unsplash.com/photo-1516617442634-75371039cb3a?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1974&q=80");
-	background-size: cover;
-	background-attachment: fixed;
-	background-color: #476470;
+  font-family: Roboto;
+  font-style: normal;
+  font-weight: 400;
+  background-image: url("https://images.unsplash.com/photo-1516617442634-75371039cb3a?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1974&q=80");
+  background-size: cover;
+  background-attachment: fixed;
+  background-color: #476470;
 }
-* {
-	margin: 0;
-	padding: 0;
 
-	box-sizing: border-box;
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
 }
 
 img {
-	max-width: 100%;
+  max-width: 100%;
 }
 
 #root {
-	height: 100vh;
-	display: flex;
-	flex-direction: column;
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
 }
 
-.v-hidden {
-	font-size: 0;
-	visibility: hidden;
+.v_hidden {
+  font-size: 0;
+  visibility: hidden;
 }
